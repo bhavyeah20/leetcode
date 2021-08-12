@@ -20,3 +20,28 @@ public:
         return dp[0][0];
     }
 };
+
+
+//or
+
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& grid) {
+
+        int m = grid.size(), n = grid.size();
+        vector<int> dp(n);        
+        
+        for(int j = n-1; j >= 0; j--){
+            dp[j] = grid[m-1][j];
+        }
+        
+        for(int i = m-2; i >= 0; i--){
+            for(int j = 0; j <= i; j++){
+                dp[j] = grid[i][j] + min(dp[j], dp[j+1]);
+            }
+        }
+        
+        
+        return dp[0];
+    }
+};
