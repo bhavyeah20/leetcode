@@ -44,48 +44,43 @@ public:
 
 class Solution {
 public:
-    unordered_map<int, int> cntM, cntN;
    
     
     int findMaxForm(vector<string>& strs, int m, int n) {
         int N = strs.size();
-        int dp[N+1][m+1][n+1];
-        cntM.clear(), cntN.clear();
-        for(int i = 0; i < strs.size(); i++){
-            for(auto ch: strs[i]){
-                if(ch == '0')
-                    cntM[i]++;
-                
-                else
-                    cntN[i]++;
-            }
-        }
-        
-        for(int idx = 0; idx <= N; i++){
-            dp[idx][0][0] = 0;
-        }
-
+        int dp[m+1][n+1];
+       
         for(int i = 0; i <= m; i++){
             for(int j = 0; j <= n; j++){
-                dp[N][i][j] = 0;
+                dp[i][j] = 0;
             }
         }
 
-        for(int idx = N-1; idx >= 0; idx--){
-            for(int i = 0; i <= m; i++){
-                for(int j = 0; j <= n; j++){
-                    if(i-cntM[idx] >= 0 && j-cntN[idx] >= 0){
-                        dp[idx][i][j] = max(1 + dp[idx+1][i-cntM[idx]][j-cntN[idx]], dp[idx+1][i][j]);
-                    }
-
+        for(int idx = 1; idx <= N; idx++){
+            int one = 0, zero = 0;
+                for(auto ch: strs[idx-1]){
+                    if(ch == '0')
+                        zero++;
+                
                     else
-                        dp[idx][i][j] = dp[idx+1][i][j];
+                        one++;
                 }
-            }
+            
+            
+                for(int i = m; i >= 0; i--){
+                    for(int j = n; j >= 0; j--){
+                        if(i-zero >= 0 && j-one >= 0){
+                            dp[i][j] = max(1 + dp[i-zero][j-one], dp[i][j]);
+                        }
+
+                        else
+                            dp[i][j] = dp[i][j];
+                    }
+                }
+        
         }
 
-
-        return dp[0][m][n];
+        return dp[m][n];
         
     }
 };
