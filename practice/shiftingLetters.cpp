@@ -5,7 +5,7 @@ public:
             if(i != s.length()-1)
                 shifts[i] += shifts[i+1] % 26;
             
-            s[i] = 'a' + (((s[i]-'a') + shifts[i]) % 26);
+            s[i] = (((s[i]-'a') + shifts[i]) % 26) + 'a';
         }
         
         return s;
