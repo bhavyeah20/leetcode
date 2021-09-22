@@ -1,3 +1,8 @@
+// Count inversions
+// Multiset O(n^2) [distance is O(N)]
+// Balanced BST O(NlogN)
+// Mergesort O(NlogN)
+
 class Solution {
 public:
     
